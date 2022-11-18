@@ -1,9 +1,8 @@
-import React from 'react';
-import css from './Loader.module.css'
+import { BallTriangle } from 'react-loader-spinner';
+import { DivStyled } from './Loader.styled';
 
-const Loader = () => (
-    <section className={css.loade}>
-        <span className={css.loading}>L &nbsp; ading</span>
-    </section>
+export const Loader = () => (
+  <DivStyled>
+    <BallTriangle color="#3f51b5" height={200} width={200} />
+  </DivStyled>
 );
-export default Loader;

@@ -1,28 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { UlStyled } from './ImageGallery.styled';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
-import css from './ImageGallery.module.css';
 
-const ImageGallery = ({ photoName, onClick }) => (
-    <div className='gallery'>
-        <ul className={css.imageGallery}>
-            {photoName.map(photo => (
-                <ImageGalleryItem
-                    key={photo.id}
-                    photo={photo}
-                    onClick={onClick}
-                />
-            ))}
-        </ul>
-    </div>
-);
+const ImageGallery = ({ images, setCurrentImage }) => {
+  return (
+    <UlStyled>
+      {images.map(({ id, webformatURL, largeImageURL }) => (
+        <ImageGalleryItem
+          key={id}
+          id={id}
+          webformatURL={webformatURL}
+          largeImageURL={largeImageURL}
+          setCurrentImage={setCurrentImage}
+        />
+      ))}
+    </UlStyled>
+  );
+};
+
 ImageGallery.propTypes = {
-    photoName: PropTypes.arrayOf(
-        PropTypes.shape ({
-        id: PropTypes.number.isRequired,
-        })
-    ),
-    onClick: PropTypes.func.isRequired,
+  images: PropTypes.array.isRequired,
+  setCurrentImage: PropTypes.func.isRequired,
 };
 
 export default ImageGallery;

@@ -1,46 +1,38 @@
-import { Component } from 'react';
+import React, { useEffect} from 'react';
 import PropTypes from 'prop-types';
-import css from './Modal.module.css'
+import { DivBackdropStyled, DivModalStyled } from './Modal.styled';
 
-class Modal extends Component {
-    state = {
-        url: this.props.url,
+export function Modal({ image, closeModal }) {
+  useEffect(() => {
+    const handleClickByEsc = e => {
+      if (e.code === 'Escape') {
+        closeModal();
+      }
     };
 
+    window.addEventListener('keydown', handleClickByEsc);
 
-    handleKeyDown = e => {
-        if (e.code === 'Escape') {
-            this.props.closeModal();
-        }
-    }
+    return () => {
+      window.removeEventListener('keydown', handleClickByEsc);
+    };
+  }, [closeModal]);
 
-    handleBackdropClick = e => {
-        if (e.currentTarget === e.target) {
-            this.props.closeModal();
-        }
+  const backdropClick = e => {
+    if (e.currentTarget === e.target) {
+      closeModal();
     }
+  };
 
-    componentDidMount() {
-        window.addEventListener('keydown', this.handleKeyDown)
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('keydown', this.handleKeyDown)
-    }
-    render() {
-        return (
-            <div className={css.overlay} onClick={this.handleBackdropClick}>
-                <div className={css.modal}>
-                    <img className='img' src={this.state.url} alt='' />
-                </div>
-            </div>
-        );
-    }
+  return (
+    <DivBackdropStyled onClick={backdropClick}>
+      <DivModalStyled>
+        <img src={image} alt="something" />
+      </DivModalStyled>
+    </DivBackdropStyled>
+  );
 }
 
 Modal.propTypes = {
-    url: PropTypes.string.isRequired,
-    closeModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  image: PropTypes.string.isRequired,
 };
-
-export default Modal;

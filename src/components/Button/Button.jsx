@@ -1,17 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { GrLinkNext } from 'react-icons/gr';
-import css from './Button.module.css'
+import { ButtonStyled } from './Button.styled';
 
-
-
-
-const Button = ({ onClick }) => (
-    <button onClick={() => onClick()} className={css.button__more} type="button">Load more <GrLinkNext color='brand' /></button>
+export const Button = ({ handleClick }) => (
+  <ButtonStyled type="button" onClick={handleClick}>
+    Load more
+  </ButtonStyled>
 );
 
 Button.propTypes = {
-    onClick: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
-
-export default Button;

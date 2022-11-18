@@ -1,29 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import SimpleLightbox from 'simplelightbox';
-import css from './ImageGalleryItem.module.css'
+import { LiStyled, ImgStyled } from './ImageGalleryItem.styled';
 
-const ImageGalleryItem = ({
-    photo: { webformatURL, tags, largeImageURL },
-    onClick,
-}) => (
-    <li className={css.imageGalleryItem}>
-        <img
-            className={css.imageGalleryItem__image}
-            src={webformatURL}
-            alt={tags}
-            onClick={() => onClick(largeImageURL)}
-        />
-    </li>
+const ImageGalleryItem = ({ webformatURL, largeImageURL, setCurrentImage }) => (
+  <LiStyled>
+    <ImgStyled
+      src={webformatURL}
+      alt="something"
+      onClick={() => setCurrentImage(largeImageURL)}
+    />
+  </LiStyled>
 );
 
 ImageGalleryItem.propTypes = {
-    photo: PropTypes.shape({
-        webformatURL: PropTypes.string.isRequired,
-        tags: PropTypes.string.isRequired,
-        largeImageURL: PropTypes.string.isRequired,
-    }).isRequired,
-    onClick: PropTypes.func.isRequired,
+  webformatURL: PropTypes.string.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+  setCurrentImage: PropTypes.func.isRequired,
 };
 
 export default ImageGalleryItem;
